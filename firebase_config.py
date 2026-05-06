@@ -10,8 +10,9 @@ def init_firebase():
         if not firebase_admin._apps:
             cred = credentials.Certificate(dict(st.secrets["firebase"]))
             firebase_admin.initialize_app(cred)
-    except:
-        pass
+        return True
+    except Exception as e:
+        return False
 
 def register_user(email, password, name, college, class_name):
     try:
