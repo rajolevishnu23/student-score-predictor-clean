@@ -28,7 +28,8 @@ if not st.session_state.logged_in and "s" in qp:
     except: pass
 
 try:
-    from firebase_config import login_user,register_user,save_prediction,get_user_predictions,get_class_leaderboard,update_streak
+    from firebase_config import login_user,register_user,save_prediction,get_user_predictions,get_class_leaderboard,update_streak,init_firebase
+    init_firebase()
     FIREBASE_ENABLED=True
 except ImportError:
     FIREBASE_ENABLED=False
@@ -523,14 +524,11 @@ with t8:
             st.markdown(f"<div style='color:#c4b5fd;font-size:.85rem;padding:.3rem 0;'>{f}</div>",unsafe_allow_html=True)
         st.markdown("<div style='height:1rem'></div><div class='card-title'>⚠️ Limitations</div>",unsafe_allow_html=True)
         st.markdown("<div style='color:#a09cc0;font-size:.83rem;line-height:1.8;'>• Synthetic training data<br>• Binary prediction only<br>• Firebase setup required for cloud features<br>• No real push notifications yet</div>",unsafe_allow_html=True)
-        st.markdown("<div style='height:1rem'></div><div class='card-title'>🔥 Firebase Setup Guide</div>",unsafe_allow_html=True)
+        st.markdown("<div style='height:1rem'></div><div class='card-title'>🔥 Streamlit Cloud Setup</div>",unsafe_allow_html=True)
         st.markdown("""<div style='color:#c4b5fd;font-size:.82rem;line-height:1.9;'>
-        1. Go to <strong style='color:#a78bfa;'>console.firebase.google.com</strong><br>
-        2. Create new project<br>
-        3. Enable <strong>Authentication → Email/Password</strong><br>
-        4. Create <strong>Realtime Database</strong> (test mode)<br>
-        5. Project Settings → Your Apps → Web → Copy config<br>
-        6. Paste into <strong>firebase_config.py</strong><br>
-        7. Run: <code style='color:#a78bfa;'>pip install pyrebase4</code></div>""",unsafe_allow_html=True)
+        1. Add secrets to Streamlit Cloud settings<br>
+        2. Create <strong>firebase</strong> secret with service account JSON<br>
+        3. Upload to <strong>streamlit/secrets.toml</strong><br>
+        4. App will auto-initialize Firebase from secrets</div>""",unsafe_allow_html=True)
 
 st.markdown("<div style='text-align:center;padding:2rem 0 1rem;color:#3d3560;font-size:.78rem;'>Student Performance Predictor v2.0 🎓 · Streamlit · Firebase · scikit-learn</div>",unsafe_allow_html=True)
