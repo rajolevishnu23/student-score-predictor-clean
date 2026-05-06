@@ -6,19 +6,12 @@ import datetime
 firebase_initialized = False
 
 def init_firebase():
-    global firebase_initialized
-    if firebase_initialized or firebase_admin._apps:
-        return True
     try:
-        cred = credentials.Certificate(dict(st.secrets["firebase"]))
-        firebase_admin.initialize_app(cred, {
-            "databaseURL": st.secrets["firebase"]["databaseURL"]
-        })
-        firebase_initialized = True
-        return True
-    except Exception as e:
-        st.warning(f"Firebase not configured: {str(e)}")
-        return False
+        if not firebase_admin._apps:
+            cred = credentials.Certificate(dict(st.secrets["firebase"]))
+            firebase_admin.initialize_app(cred)
+    except:
+        pass
 
 def register_user(email, password, name, college, class_name):
     try:
